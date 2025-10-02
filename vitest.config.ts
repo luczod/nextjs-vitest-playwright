@@ -64,6 +64,7 @@ export default defineConfig({
         "**/*.type.{ts,tsx}",
         "**/*.types.{ts,tsx}",
         "**/*.contract.{ts,tsx}",
+        "**/*.dto.{ts,tsx}",
         "**/*.protocol.{ts,tsx}",
         "**/*.interface.{ts,tsx}",
 
