@@ -49,28 +49,3 @@ Git, GitHub, Vercel, GitHub Pages, Linux (Ubuntu), NGINX com SSL (Let's Encrypt
 HTTPS).
 
 ---
-
-## Diferenciais do curso
-
-Aqui é o Luiz Otávio Miranda (instrutor do curso), e os meus quase 300 mil
-alunos podem falar por si só. Meu objetivo com qualquer curso é simples: fazer
-você aprender de verdade.
-
-Você não vai encontrar aqui apresentações com slides robóticos sendo lidos.
-
-O que temos são aulas 100% práticas, onde eu te mostro cada linha de código,
-explico por que ela está ali, e como tudo se encaixa até formar um projeto
-completo.
-
-Você vai sair do curso sabendo construir, não apenas copiar.
-
-Aqui estão alguns dos nossos principais diferenciais:
-
-- Atualizado em 2025 com as versões mais modernas do ecossistema React
-- Explicações linha por linha, com foco no entendimento real do código
-- Projetos reais, com design responsivo e lógica de produção
-- Deploy profissional, incluindo configuração de servidor Linux real com HTTPS
-- Acesso vitalício com todas as atualizações futuras inclusas
-- Seções organizadas de forma modular, facilitando sua progressão
-
----

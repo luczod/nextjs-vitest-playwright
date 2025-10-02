@@ -28,6 +28,7 @@
     "build-storybook": "storybook build"
   },
   "dependencies": {
+    "@vitejs/plugin-react-swc": "^4.1.0",
     "better-sqlite3": "^12.4.1",
     "clsx": "^2.1.1",
     "date-fns": "^4.1.0",

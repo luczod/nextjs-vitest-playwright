@@ -2,7 +2,7 @@
 // Garante que o TypeScript reconheça os tipos do Vitest
 
 import { defineConfig } from "vitest/config";
-import react from "@vitejs/plugin-react";
+import react from "@vitejs/plugin-react-swc";
 import path from "path";
 
 // Carrega variáveis de ambiente antes de tudo
