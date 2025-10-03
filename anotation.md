@@ -398,7 +398,7 @@ o `default: { ... }`).
 ### ✅ `vi.mocked(...)`
 
 Usado pra **dizer ao TypeScript que aquela função já foi mockada** e, por isso,
-tem métodos como `.mockResolvedValue()` e afins.
+tem métodos como `.mockReturnValue` e `.mockResolvedValue() || .mockRejectedValue()` para promises.
 
 > Ele **não cria** o mock. Só "tipa" corretamente algo **que já foi mockado
 > antes** com `vi.mock`.
