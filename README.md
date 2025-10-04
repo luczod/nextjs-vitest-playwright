@@ -2,12 +2,6 @@
 
 ## Tecnologias, bibliotecas e ferramentas
 
-Todas as aulas estão sendo atualizadas ao longo de 2025, sempre com o
-compromisso de entregar o conteúdo mais moderno e relevante para o mercado.
-Abaixo estão algumas das tecnologias mais utilizadas no curso - além delas, você
-também verá várias outras ferramentas pontuais que fazem parte do dia a dia de
-um projeto real.
-
 ### Frontend
 
 React 19, Next.js 15, Tailwind CSS v4, TypeScript, Vite

@@ -1,6 +1,7 @@
 import { sanitizeStr } from "./sanitize-str";
 
 describe("sanitizeStr (unit)", () => {
+  console.log("CURRENT_ENV=", process.env.CURRENT_ENV);
   it("return a empty string when receive a FALSE value", () => {
     // @ts-expect-error test function without params
     expect(sanitizeStr()).toBe("");
