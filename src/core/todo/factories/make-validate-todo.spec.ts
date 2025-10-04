@@ -1,16 +1,16 @@
-import { makeValidateTodo } from "./make-validate-todo";
+import {
+  makeValidateTodo,
+  TInvalidTodo,
+  TValidTodo,
+} from "./make-validate-todo";
 import * as validateTodoDescriptionMod from "../schemas/validate-todo-description";
 import * as sanitizeStrMod from "@/utils/sanitize-str";
 import * as makeNewTodoMod from "./make-new-todo";
-import { randomUUID } from "crypto";
 
 describe("makeValidatedTodo (unit)", () => {
   it("should call sanitizeStr function with correct value", () => {
     // ARRANGE
-    const description = "abcdef";
-    const sanitizeStrSpy = vi
-      .spyOn(sanitizeStrMod, "sanitizeStr")
-      .mockReturnValue(description);
+    const { description, sanitizeStrSpy } = makeMocks();
 
     // ACT
     makeValidateTodo(description);
@@ -22,67 +22,83 @@ describe("makeValidatedTodo (unit)", () => {
 
   it("should call validateTodoDescription with sanitizeStr return", () => {
     // ARRANGE
-    const cleanDescription = "abcdef";
-    const validateTodoDescriptionSpy = vi
-      .spyOn(validateTodoDescriptionMod, "validateTodoDescription")
-      .mockReturnValue({
-        success: true,
-        errors: [],
-      });
+    const { description, sanitizeStrSpy, validateTodoDescriptionSpy } =
+      makeMocks();
+    const sanitizeReturn = "Clean description";
+    sanitizeStrSpy.mockReturnValue(sanitizeReturn);
 
     // ACT
-    makeValidateTodo(cleanDescription);
+    makeValidateTodo(description) as TValidTodo;
 
     // ASSERT
     expect(validateTodoDescriptionSpy).toHaveBeenCalledExactlyOnceWith(
-      cleanDescription
+      sanitizeReturn
     );
   });
 
   it("should call makeNewTodo if validateTodoDescription return success", () => {
     // ARRANGE
-    const cleanDescription = "abcdef";
-    vi.spyOn(
-      validateTodoDescriptionMod,
-      "validateTodoDescription"
-    ).mockReturnValue({
-      success: true,
-      errors: [],
-    });
-
-    const makeNewTodoSpy = vi
-      .spyOn(makeNewTodoMod, "makeNewTodo")
-      .mockReturnValue({
-        id: randomUUID(),
-        description: cleanDescription,
-        createdAt: new Date().toISOString(),
-      });
+    const { description } = makeMocks();
 
     // ACT
-    makeValidateTodo(cleanDescription);
+    const result = makeValidateTodo(description) as TValidTodo;
 
     // ASSERT
-    expect(makeNewTodoSpy).toHaveBeenCalledExactlyOnceWith(cleanDescription);
+    expect(result.success).toBe(true);
+
+    expect(result.data).toStrictEqual({
+      id: "any-id",
+      description: "abcdef",
+      createdAt: expect.any(String),
+    });
   });
 
   it("should return validateTodoDescription.error  if validation fail", () => {
     // ARRANGE
-    const cleanDescription = "abc";
-    vi.spyOn(
-      validateTodoDescriptionMod,
-      "validateTodoDescription"
-    ).mockReturnValue({
+    const { description, errors, validateTodoDescriptionSpy } = makeMocks();
+
+    validateTodoDescriptionSpy.mockReturnValue({
       success: false,
-      errors: ["Description must have more than 3 characters"],
+      errors,
     });
 
     // ACT
-    const newTodo = makeValidateTodo(cleanDescription);
+    const result = makeValidateTodo(description) as TInvalidTodo;
 
     // ASSERT
-    expect(newTodo).toStrictEqual({
-      success: false,
-      errors: ["Description must have more than 3 characters"],
-    });
+    expect(result.success).toBe(false);
+    expect(result.errors).toStrictEqual(errors);
   });
 });
+
+const makeMocks = (description = "abcdef") => {
+  const todo = {
+    id: "any-id",
+    description,
+    createdAt: new Date().toISOString(),
+  };
+  const errors = ["Description must have more than 3 characters"];
+  const sanitizeStrSpy = vi
+    .spyOn(sanitizeStrMod, "sanitizeStr")
+    .mockReturnValue(description);
+
+  const validateTodoDescriptionSpy = vi
+    .spyOn(validateTodoDescriptionMod, "validateTodoDescription")
+    .mockReturnValue({
+      success: true,
+      errors: [],
+    });
+
+  const makeNewTodoSpy = vi
+    .spyOn(makeNewTodoMod, "makeNewTodo")
+    .mockReturnValue(todo);
+
+  return {
+    description,
+    todo,
+    errors,
+    sanitizeStrSpy,
+    validateTodoDescriptionSpy,
+    makeNewTodoSpy,
+  };
+};

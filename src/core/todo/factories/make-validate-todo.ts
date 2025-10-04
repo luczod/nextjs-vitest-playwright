@@ -3,12 +3,12 @@ import { validateTodoDescription } from "../schemas/validate-todo-description";
 import { makeNewTodo } from "./make-new-todo";
 import { TodoDto } from "../schemas/todo.dto";
 
-type TInvalidTodo = {
+export type TInvalidTodo = {
   success: false;
   errors: string[];
 };
 
-type TValidTodo = {
+export type TValidTodo = {
   success: true;
   data: TodoDto;
 };
