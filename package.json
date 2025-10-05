@@ -7,8 +7,9 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "drizzle:generate": "drizzle-kit generate",
-    "drizzle:migrate": "drizzle-kit migrate",
+    "drizzle:generate": "dotenv -e .env.development -- drizzle-kit generate --config=./drizzle.config.ts",
+    "drizzle:migrate:dev": "dotenv -e .env.development -- drizzle-kit migrate --config=./drizzle.config.ts",
+    "drizzle:migrate:prod": "dotenv -e .env.production -- drizzle-kit migrate --config=./drizzle.config.ts",
     "dev:test": "dotenv -e .env.e2e -- next dev",
     "start:test": "dotenv -e .env.e2e -- next start",
     "test": "dotenv -e .env.test -- vitest run --bail 1",
@@ -28,6 +29,7 @@
     "build-storybook": "storybook build"
   },
   "dependencies": {
+    "@libsql/client": "^0.15.15",
     "@vitejs/plugin-react-swc": "^4.1.0",
     "better-sqlite3": "^12.4.1",
     "clsx": "^2.1.1",
