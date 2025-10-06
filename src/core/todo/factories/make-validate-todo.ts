@@ -1,28 +1,16 @@
 import { sanitizeStr } from "@/utils/sanitize-str";
 import { validateTodoDescription } from "../schemas/validate-todo-description";
 import { makeNewTodo } from "./make-new-todo";
-import { TodoDto } from "../schemas/todo.dto";
+import { TodoDTO } from "../schemas/todo.dto";
 
-export type TInvalidTodo = {
-  success: false;
-  errors: string[];
-};
-
-export type TValidTodo = {
-  success: true;
-  data: TodoDto;
-};
-
-type TMakeValidatedTodo = TValidTodo | TInvalidTodo;
-
-export function makeValidateTodo(description: string): TMakeValidatedTodo {
+export function makeValidateTodo(description: string): TodoDTO {
   const cleanDescription = sanitizeStr(description);
   const validateDescription = validateTodoDescription(cleanDescription);
 
   if (validateDescription.success) {
     return {
       success: true,
-      data: makeNewTodo(cleanDescription),
+      todo: makeNewTodo(cleanDescription),
     };
   }
 

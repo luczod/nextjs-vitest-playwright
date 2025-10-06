@@ -1,7 +1,7 @@
 import { randomUUID } from "crypto";
-import { TodoDto } from "../schemas/todo.dto";
+import { TTodo } from "../schemas/todo.dto";
 
-export function makeNewTodo(description: string): TodoDto {
+export function makeNewTodo(description: string): TTodo {
   return {
     id: randomUUID(),
     description,

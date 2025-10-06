@@ -46,7 +46,7 @@ describe("makeValidatedTodo (unit)", () => {
     // ASSERT
     expect(result.success).toBe(true);
 
-    expect(result.data).toStrictEqual({
+    expect(result.todo).toStrictEqual({
       id: "any-id",
       description: "abcdef",
       createdAt: expect.any(String),
