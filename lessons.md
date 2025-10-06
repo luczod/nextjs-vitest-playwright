@@ -19,7 +19,7 @@
 - [x] Configurando as variáveis de ambiente para Vitest, Playwright e Next.js
 - [x] Criando o schema (tabela SQL) com Drizzle + migrations
 - [x] Configurando o Drizzle ORM com base no ambiente (`.env.*`)
-- [ ] Interface e implementação do padrão de projeto repository com Drizzle ORM
+- [x] Interface e implementação do padrão de projeto repository com Drizzle ORM
 - [ ] Teste de integração do repository com Drizzle ORM e Vitest
 - [ ] Usecase `createTodoUseCase` com testes de integração no Vitest
 - [ ] Usecase `deleteTodoUseCase` com testes de integração no Vitest
