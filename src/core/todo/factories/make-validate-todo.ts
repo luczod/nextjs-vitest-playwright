@@ -3,7 +3,7 @@ import { validateTodoDescription } from "../schemas/validate-todo-description";
 import { makeNewTodo } from "./make-new-todo";
 import { TodoDTO } from "../schemas/todo.dto";
 
-export function makeValidateTodo(description: string): TodoDTO {
+export function makeValidatedTodo(description: string): TodoDTO {
   const cleanDescription = sanitizeStr(description);
   const validateDescription = validateTodoDescription(cleanDescription);
 

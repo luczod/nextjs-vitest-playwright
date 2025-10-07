@@ -1,8 +1,5 @@
-import {
-  makeValidateTodo,
-  TInvalidTodo,
-  TValidTodo,
-} from "./make-validate-todo";
+import { makeValidatedTodo } from "./make-validate-todo";
+import { TInvalidTodo, TValidTodo } from "../schemas/todo.dto";
 import * as validateTodoDescriptionMod from "../schemas/validate-todo-description";
 import * as sanitizeStrMod from "@/utils/sanitize-str";
 import * as makeNewTodoMod from "./make-new-todo";
@@ -13,7 +10,7 @@ describe("makeValidatedTodo (unit)", () => {
     const { description, sanitizeStrSpy } = makeMocks();
 
     // ACT
-    makeValidateTodo(description);
+    makeValidatedTodo(description);
 
     // ASSERT
     expect(sanitizeStrSpy).toHaveBeenCalledExactlyOnceWith(description);
@@ -28,7 +25,7 @@ describe("makeValidatedTodo (unit)", () => {
     sanitizeStrSpy.mockReturnValue(sanitizeReturn);
 
     // ACT
-    makeValidateTodo(description) as TValidTodo;
+    makeValidatedTodo(description) as TValidTodo;
 
     // ASSERT
     expect(validateTodoDescriptionSpy).toHaveBeenCalledExactlyOnceWith(
@@ -41,7 +38,7 @@ describe("makeValidatedTodo (unit)", () => {
     const { description } = makeMocks();
 
     // ACT
-    const result = makeValidateTodo(description) as TValidTodo;
+    const result = makeValidatedTodo(description) as TValidTodo;
 
     // ASSERT
     expect(result.success).toBe(true);
@@ -63,7 +60,7 @@ describe("makeValidatedTodo (unit)", () => {
     });
 
     // ACT
-    const result = makeValidateTodo(description) as TInvalidTodo;
+    const result = makeValidatedTodo(description) as TInvalidTodo;
 
     // ASSERT
     expect(result.success).toBe(false);
