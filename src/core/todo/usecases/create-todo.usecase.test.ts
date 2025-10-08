@@ -1,5 +1,5 @@
 import { makeTestTodoRepository } from "@/core/__tests__/utils/make-test-todo-repository";
-import { createTodoUseCase } from "./create-todo-usecase";
+import { createTodoUseCase } from "./create-todo.usecase";
 import { TInvalidTodo, TValidTodo } from "../schemas/todo.dto";
 
 describe("createTodoUseCase (integration)", () => {

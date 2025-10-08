@@ -22,7 +22,7 @@
 - [x] Interface e implementação do padrão de projeto repository com Drizzle ORM
 - [x] Teste de integração do repository com Drizzle ORM e Vitest
 - [x] Usecase `createTodoUseCase` com testes de integração no Vitest
-- [x] Usecase `deleteTodoUseCase` com testes de integração no Vitest
+- [] Usecase `deleteTodoUseCase` com testes de integração no Vitest
 - [ ] Server action do Next.js com testes do Vitest para `create`
 - [ ] Server action do Next.js com testes do Vitest para `delete`
 - [ ] (EDITAR) Veremos os próximos passos de acordo com as aulas...
