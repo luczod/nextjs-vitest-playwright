@@ -12,7 +12,7 @@
     "drizzle:migrate:prod": "dotenv -e .env.production -- drizzle-kit migrate --config=./drizzle.config.ts",
     "dev:test": "dotenv -e .env.e2e -- next dev",
     "start:test": "dotenv -e .env.e2e -- next start",
-    "test": "dotenv -e .env.test -- vitest run --bail 1",
+    "test": "dotenv -e .env.test -- vitest run --reporter=verbose",
     "test:all": "npm run test && npm run test:e2e",
     "test:watch": "dotenv -e .env.test -- vitest --bail 1",
     "test:unit": "dotenv -e .env.test -- vitest run --exclude 'src/**/*.{test,e2e}.{ts,tsx}' --fileParallelism",
