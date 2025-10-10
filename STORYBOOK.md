@@ -25,7 +25,9 @@ componentes isolados** em um ambiente controlado.
 Instale os pacotes com:
 
 ```bash
-npm install -D @storybook/react@8.x @storybook/nextjs@8.x @storybook/addon-essentials@8.x storybook@8.x
+npm install -D @storybook/react@8.x @storybook/nextjs@8.x @storybook/addon-essentials@8.x storybook@8.x webpack@5.101.2
+# recent version
+# npm install storybook@latest add @storybook/addon-webpack5-compiler-swc
 ```
 
 ---
@@ -35,16 +37,16 @@ npm install -D @storybook/react@8.x @storybook/nextjs@8.x @storybook/addon-essen
 ### `.storybook/main.ts`
 
 ```ts
-import type { StorybookConfig } from '@storybook/nextjs';
+import type { StorybookConfig } from "@storybook/nextjs";
 
 const config: StorybookConfig = {
   stories: [
-    '../src/**/*.stories.@(js|jsx|ts|tsx)',
-    '../src/**/stories.@(js|jsx|ts|tsx)',
+    "../src/**/*.stories.@(js|jsx|ts|tsx)",
+    "../src/**/stories.@(js|jsx|ts|tsx)",
   ],
-  addons: ['@storybook/addon-essentials'],
-  framework: '@storybook/nextjs',
-  staticDirs: ['../public'],
+  addons: ["@storybook/addon-essentials"],
+  framework: "@storybook/nextjs",
+  staticDirs: ["../public"],
   features: {
     backgroundsStoryGlobals: false,
   },
@@ -57,20 +59,20 @@ export default config;
 ### `.storybook/preview.tsx`
 
 ```tsx
-import React from 'react';
-import type { Preview } from '@storybook/react';
+import React from "react";
+import type { Preview } from "@storybook/react";
 
-import '../src/app/globals.css';
-import './storybook.css';
+import "../src/app/globals.css";
+import "./storybook.css";
 
 const preview: Preview = {
   parameters: {
     backgrounds: {
       values: [
         // { name: 'dark', value: '#000000' },
-        { name: 'light', value: 'ffffff' },
+        { name: "light", value: "ffffff" },
       ],
-      default: 'light',
+      default: "light",
     },
     controls: {
       matchers: {
@@ -79,7 +81,7 @@ const preview: Preview = {
       },
     },
   },
-  decorators: [Story => <Story />],
+  decorators: [(Story) => <Story />],
 };
 
 export default preview;
@@ -111,73 +113,71 @@ body {
 ### `src/components/Button/index.tsx`
 
 ```tsx
-import clsx from 'clsx';
+import clsx from "clsx";
 
-type ButtonVariants = 'default' | 'ghost' | 'danger';
-type ButtonSizes = 'sm' | 'md' | 'lg';
+type ButtonVariants = "default" | "ghost" | "danger";
+type ButtonSizes = "sm" | "md" | "lg";
 
 type ButtonProps = {
   variant?: ButtonVariants;
   size?: ButtonSizes;
-} & React.ComponentProps<'button'>;
+} & React.ComponentProps<"button">;
 
 export function Button({
-  variant = 'default',
-  size = 'md',
+  variant = "default",
+  size = "md",
   ...props
 }: ButtonProps) {
   const buttonVariants: Record<ButtonVariants, string> = {
-    default: clsx('bg-blue-600 hover:bg-blue-700 text-blue-100'),
-    ghost: clsx('bg-slate-300 hover:bg-slate-400 text-slate-950'),
-    danger: clsx('bg-red-600 hover:bg-red-700 text-red-100'),
+    default: clsx("bg-blue-600 hover:bg-blue-700 text-blue-100"),
+    ghost: clsx("bg-slate-300 hover:bg-slate-400 text-slate-950"),
+    danger: clsx("bg-red-600 hover:bg-red-700 text-red-100"),
   };
 
   const buttonSizes: Record<ButtonSizes, string> = {
     sm: clsx(
-      'text-xs/tight',
-      'py-1',
-      'px-2',
-      'rounded-sm',
-      '[&_svg]:w-3 [&_svg]:h-3 gap-1',
+      "text-xs/tight",
+      "py-1",
+      "px-2",
+      "rounded-sm",
+      "[&_svg]:w-3 [&_svg]:h-3 gap-1"
     ),
     md: clsx(
-      'text-base/tight',
-      'py-2',
-      'px-4',
-      'rounded-md',
-      '[&_svg]:w-4 [&_svg]:h-4 gap-2',
+      "text-base/tight",
+      "py-2",
+      "px-4",
+      "rounded-md",
+      "[&_svg]:w-4 [&_svg]:h-4 gap-2"
     ),
     lg: clsx(
-      'text-lg/tight',
-      'py-4',
-      'px-6',
-      'rounded-lg',
-      '[&_svg]:w-5 [&_svg]:h-5 gap-3',
+      "text-lg/tight",
+      "py-4",
+      "px-6",
+      "rounded-lg",
+      "[&_svg]:w-5 [&_svg]:h-5 gap-3"
     ),
   };
 
   const buttonClasses = clsx(
     buttonVariants[variant],
     buttonSizes[size],
-    'flex items-center justify-center cursor-pointer',
-    'transition',
-    'disabled:bg-slate-200',
-    'disabled:text-slate-400',
-    'disabled:cursor-not-allowed',
-    props.className,
+    "flex items-center justify-center cursor-pointer",
+    "transition",
+    "disabled:bg-slate-200",
+    "disabled:text-slate-400",
+    "disabled:cursor-not-allowed",
+    props.className
   );
 
-  return (
-    <button {...props} className={buttonClasses} />
-  );
+  return <button {...props} className={buttonClasses} />;
 }
 ```
 
 ### `src/components/Button/Button.stories.tsx`
 
 ```tsx
-import { Button } from '.';
-import type { Meta, StoryObj } from '@storybook/react';
+import { Button } from ".";
+import type { Meta, StoryObj } from "@storybook/react";
 
 const meta = {
   component: Button,
@@ -189,7 +189,7 @@ type Story = StoryObj<typeof Button>;
 
 export const Playground: Story = {
   args: {
-    children: 'Texto do botão',
+    children: "Texto do botão",
   },
 };
 ```
