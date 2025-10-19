@@ -3,6 +3,16 @@ import { TodoForm } from ".";
 import type { Meta, StoryObj } from "@storybook/react";
 import { fn } from "@storybook/test";
 
+function simulatePromise(delay: number) {
+  return new Promise((resolve, _) => {
+    // Simulate an asynchronous task using setTimeout
+    setTimeout(() => {
+      console.log(`Operation successful after ${delay}ms.`);
+      resolve(`Data successfully fetched after ${delay}ms.`); // Resolve the promise with a value
+    }, delay);
+  });
+}
+
 const meta: Meta<typeof TodoForm> = {
   title: "Components/Forms/TodoForm",
   component: TodoForm,
@@ -27,7 +37,7 @@ type Story = StoryObj<typeof TodoForm>;
 export const Default: Story = {
   args: {
     action: fn(async () => {
-      // await simulatePromise();
+      await simulatePromise(1000);
       return {
         success: true,
         todo: { id: "id", description: "desc", createdAt: "data" },
