@@ -26,6 +26,7 @@ Instale os pacotes com:
 
 ```bash
 npm install -D @storybook/react@8.x @storybook/nextjs@8.x @storybook/addon-essentials@8.x storybook@8.x webpack@5.101.2
+npm install -D @storybook/react@8.x @storybook/nextjs@8.x @storybook/addon-essentials@8.x storybook@8.x webpack@5.101.2 @storybook/test@8.x --upgrade
 # recent version
 # npm install storybook@latest add @storybook/addon-webpack5-compiler-swc
 ```
