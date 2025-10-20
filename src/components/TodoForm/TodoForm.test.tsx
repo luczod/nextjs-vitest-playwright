@@ -78,7 +78,7 @@ describe("<TodoForm /> (integration)", () => {
 
   it("must change the button text while sending the action", async () => {
     // ARRANGE
-    const { btn, input } = renderForm({ delay: 6 });
+    const { btn, input } = renderForm({ delay: 10 });
 
     // ACT
     await user.type(input, "task");
@@ -97,10 +97,10 @@ describe("<TodoForm /> (integration)", () => {
     await user.type(input, "task");
     await user.click(btn);
 
-    const error = await screen.findByRole("alert");
+    const error = await screen.findByRole("alert"); // recommended to async operations
 
     // ASSERT
-    expect(error).toHaveTextContent("falha ao criar todo");
+    expect(error).toHaveTextContent("failed to create TODO");
     expect(input).toHaveAttribute("aria-describedby", error.id);
   });
 
@@ -129,15 +129,17 @@ function renderForm({ delay = 0, success = true }: RenderForm = {}) {
   };
   const actionErrorResult = {
     success: false,
-    errors: ["falha ao criar todo"],
+    errors: ["failed to create TODO"],
   };
   const actionResult = success ? actionSuccessResult : actionErrorResult;
 
   const actionNoDelay = vi.fn().mockResolvedValue(actionResult);
+
   const actionDelayed = vi.fn().mockImplementation(async () => {
     await new Promise((r) => setTimeout(r, delay));
     return actionResult;
   });
+
   const action = delay > 0 ? actionDelayed : actionNoDelay;
 
   render(<TodoForm action={action} />);
