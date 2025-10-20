@@ -34,7 +34,7 @@ export function TodoList({ action, todos = [] }: TodoListProps) {
         className="mb-8 text-3xl/normal font-extrabold text-center"
         id={headingId}
       >
-        Lista de tarefas
+        to-do list
       </h1>
 
       <TodoListItems

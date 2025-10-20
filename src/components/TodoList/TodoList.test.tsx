@@ -66,7 +66,7 @@ describe("<TodoList /> (integration)", () => {
 
   it("must disable the list items while sending the action", async () => {
     // ARRANGE
-    renderList({ delay: 10 });
+    renderList({ delay: 20 });
 
     // ACT
     const list = screen.getByRole("list", { name: /to-do list/i });
@@ -89,7 +89,7 @@ describe("<TodoList /> (integration)", () => {
 
   it("must disable the list buttons while sending the action", async () => {
     // ARRANGE
-    renderList({ delay: 10 });
+    renderList({ delay: 20 });
 
     // ACT
     const list = screen.getByRole("list", { name: /to-do list/i });
@@ -150,6 +150,7 @@ function renderList({
   todos = mockTodos,
 }: RenderListProps = {}) {
   const newTodos = [...todos];
+
   const actionSuccessResult = {
     success: true,
     todo: { id: "id", description: "desc", createdAt: "createdAt" },
@@ -159,11 +160,13 @@ function renderList({
     errors: ["failed to delete todo"],
   };
   const actionResult = success ? actionSuccessResult : actionErrorResult;
+
   const actionNoDelay = vi.fn().mockResolvedValue(actionResult);
   const actionDelayed = vi.fn().mockImplementation(async () => {
     await new Promise((r) => setTimeout(r, delay));
     return actionResult;
   });
+
   const action = delay > 0 ? actionDelayed : actionNoDelay;
 
   const renderResult = render(<TodoList action={action} todos={newTodos} />);
