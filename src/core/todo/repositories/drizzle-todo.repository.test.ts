@@ -118,7 +118,7 @@ describe("DrizzleTodoRepository (Integration)", () => {
 
     it("fail if there is not a todo in table", async () => {
       // Arrange
-      const { repository, todos } = await makeTestTodoRepository();
+      const { repository } = await makeTestTodoRepository();
 
       // Act
       const result = await repository.remove("id 8");

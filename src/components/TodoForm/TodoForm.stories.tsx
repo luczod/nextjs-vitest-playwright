@@ -4,7 +4,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { fn } from "@storybook/test";
 
 function simulatePromise(delay: number) {
-  return new Promise((resolve, _) => {
+  return new Promise((resolve) => {
     // Simulate an asynchronous task using setTimeout
     setTimeout(() => {
       console.log(`Operation successful after ${delay}ms.`);

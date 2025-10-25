@@ -1,5 +1,6 @@
+"use client";
 import { TDeleteTodoAction } from "@/core/todo/actions/todo.action.types";
-import { TodoDTO, TTodo } from "@/core/todo/schemas/todo.dto";
+import { TTodo } from "@/core/todo/schemas/todo.dto";
 
 import { sanitizeStr } from "@/utils/sanitize-str";
 import clsx from "clsx";
