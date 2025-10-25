@@ -28,6 +28,7 @@ export function TodoList({ action, todos = [] }: TodoListProps) {
       }
     });
   }
+
   return (
     <div>
       <h1
