@@ -15,6 +15,25 @@ import { cleanup } from "@testing-library/react";
 // Sem isso, o `expect(...).toBeInTheDocument()` daria erro
 import "@testing-library/jest-dom/vitest";
 
+// missing dom events in jest-dom
+class MockPointerEvent extends Event {
+  button: number;
+  ctrlKey: boolean;
+  pointerType: string;
+
+  constructor(type: string, props: PointerEventInit) {
+    super(type, props);
+    this.button = props.button || 0;
+    this.ctrlKey = props.ctrlKey || false;
+    this.pointerType = props.pointerType || "mouse";
+  }
+}
+
+window.PointerEvent = MockPointerEvent as any;
+window.HTMLElement.prototype.scrollIntoView = () => {};
+window.HTMLElement.prototype.releasePointerCapture = () => {};
+window.HTMLElement.prototype.hasPointerCapture = () => false;
+
 // Importa todos os matchers do jest-dom adaptados para Vitest
 // Isso evita warnings relacionados ao act(...) em atualizações do React
 // e garante que matchers como `.toBeInTheDocument()` funcionem corretamente
@@ -34,3 +53,12 @@ afterEach(async () => {
   // Garante que os testes sejam independentes e não tenham "lixo" de execuções anteriores
   vi.resetAllMocks();
 });
+
+// Mock ResizeObserver globally for Vitest tests
+class ResizeObserverMock {
+  observe() {}
+  unobserve() {}
+  disconnect() {}
+}
+
+vi.stubGlobal("ResizeObserver", ResizeObserverMock);
