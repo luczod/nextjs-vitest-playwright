@@ -21,6 +21,7 @@
     "test:int:watch": "dotenv -e .env.test -- vitest --exclude 'src/**/*.{spec,e2e}.{ts,tsx}' --no-file-parallelism",
     "test:cov": "dotenv -e .env.test -- vitest run --coverage --no-file-parallelism",
     "test:e2e": "dotenv -e .env.e2e -- playwright test --reporter null",
+    "test:e2e:repeat": "dotenv -e .env.e2e -- playwright test -g 'should disable the button while creating the TODO.' --reapeat-each 100",
     "test:e2e:headed": "dotenv -e .env.e2e -- playwright test --headed --reporter null",
     "test:e2e:debug": "dotenv -e .env.e2e -- playwright test --debug --reporter null",
     "test:e2e:ui": "dotenv -e .env.e2e -- playwright test --ui",

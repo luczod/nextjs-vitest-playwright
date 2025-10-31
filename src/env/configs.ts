@@ -42,7 +42,10 @@ export function checkEnv(): AllowedEnvKeys {
   const currentEnv = process.env.CURRENT_ENV;
 
   if (!currentEnv || !isValidEnv(currentEnv)) {
-    throw new Error("Check the .env* and values ​​in src/env/configs.ts");
+    console.error(
+      "Check the .env* files and the values ​​in src/env/configs.ts"
+    );
+    return "development";
   }
 
   return currentEnv;
