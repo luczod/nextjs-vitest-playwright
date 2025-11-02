@@ -203,10 +203,44 @@ test.describe("<Home /> (E2E)", () => {
     test("Should disable the list items when you send the action.", async ({
       page,
     }) => {
-      //
+      await insertTestTodos();
+      await page.reload(); // make next.js revalidate cache
+
+      const itemToBeDeleted = page.getByRole("listitem").first();
+      const itemToBeDeletedText = await itemToBeDeleted.textContent();
+
+      if (!itemToBeDeletedText) {
+        throw new Error("Item text is empty");
+      }
+
+      const deleteBtn = itemToBeDeleted.getByRole("button");
+      await deleteBtn.click();
+
+      const allDeleteButtons = await page
+        .getByRole("button", { name: /^delete:/i })
+        .all();
+
+      for (const btn of allDeleteButtons) {
+        await expect(btn).toBeDisabled();
+      }
+
+      const deleteItemNotVisible = page
+        .getByRole("listitem")
+        .filter({ hasText: itemToBeDeletedText });
+      await deleteItemNotVisible.waitFor({ state: "detached" });
+      await expect(deleteItemNotVisible).not.toBeVisible();
+
+      const renewedAllButtons = await page
+        .getByRole("button", { name: /^delete:/i })
+        .all();
+
+      for (const btn of renewedAllButtons) {
+        await expect(btn).toBeEnabled();
+      }
     });
   });
 
+  // Errors
   test.describe("Erros", () => {
     test("It should show an error if the description has 3 or fewer characters.", async ({
       page,
@@ -226,6 +260,4 @@ test.describe("<Home /> (E2E)", () => {
       //
     });
   });
-  // Errors
-  test.describe("Errors", () => {});
 });

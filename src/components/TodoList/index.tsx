@@ -84,7 +84,7 @@ function TodoListItems({
                 "cursor-pointer disabled:cursor-not-allowed",
                 "disabled:text-gray-500 hover:text-black"
               )}
-              aria-label={`Apagar: ${todo.description}`}
+              aria-label={`Delete: ${todo.description}`}
               onClick={() => handleTodoDelete(todo.id)}
               disabled={pending}
             >
