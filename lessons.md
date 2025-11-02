@@ -33,12 +33,12 @@
 - [x] Criar componente `<TodoContainer />`, adicionar no Storybook e testar
 - [x] Adicionar `<TodoContainer />` ao `page.tsx`, subir o Next.js e verificar
 - [x] Instalando o Playwright e criando o primeiro teste (título da página)
-- [ ] Testando a renderização dos elementos da interface (heading, input, botão)
-- [ ] Criando um TODO e testando o comportamento básico
-- [ ] Testando trim, múltiplos TODOs e limpeza do input
-- [ ] Testando estados da UI (botão e input desativados)
-- [ ] Apagando um TODO (interação com lista)
-- [ ] Apagando todos os TODOs com loop controlado
-- [ ] Testando desativação da lista durante ação assíncrona
-- [ ] Testando mensagens de erro de validação e duplicação
-- [ ] Testando remoção da mensagem de erro após correção
+- [x] Testando a renderização dos elementos da interface (heading, input, botão)
+- [x] Criando um TODO e testando o comportamento básico
+- [x] Testando trim, múltiplos TODOs e limpeza do input
+- [x] Testando estados da UI (botão e input desativados)
+- [x] Apagando um TODO (interação com lista)
+- [x] Apagando todos os TODOs com loop controlado
+- [x] Testando desativação da lista durante ação assíncrona
+- [x] Testando mensagens de erro de validação e duplicação
+- [x] Testando remoção da mensagem de erro após correção

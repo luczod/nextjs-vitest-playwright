@@ -27,7 +27,9 @@
     "test:e2e:ui": "dotenv -e .env.e2e -- playwright test --ui",
     "test:e2e:report": "dotenv -e .env.e2e -- playwright show-report",
     "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build"
+    "build-storybook": "storybook build",
+    "format:fix": "prettier --write \"src/**/*.{js,ts,jsx,tsx,json,css,md}\"",
+    "format:check": "prettier --check \"src/**/*.{js,ts,jsx,tsx,json,css,md}\""
   },
   "dependencies": {
     "@libsql/client": "^0.15.15",
@@ -63,6 +65,8 @@
     "drizzle-kit": "^0.31.5",
     "eslint": "^9",
     "eslint-config-next": "15.5.4",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-prettier": "^5.5.4",
     "jsdom": "^27.0.0",
     "storybook": "~8.6.14",
     "tailwindcss": "^4",

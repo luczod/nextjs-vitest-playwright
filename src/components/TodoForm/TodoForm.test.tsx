@@ -4,6 +4,8 @@ import { TodoForm } from ".";
 
 const user = userEvent.setup();
 
+// npx vitest src/components/TodoForm/TodoForm.test.tsx:10
+
 describe("<TodoForm /> (integration)", () => {
   it("should render all form components", async () => {
     // ARRANGE
@@ -65,7 +67,7 @@ describe("<TodoForm /> (integration)", () => {
 
   it("must disable the input while sending the action", async () => {
     // ARRANGE
-    const { btn, input } = renderForm({ delay: 5 });
+    const { btn, input } = renderForm({ delay: 1000 });
 
     // ACT
     await user.type(input, "task");
@@ -127,16 +129,19 @@ function renderForm({ delay = 0, success = true }: RenderForm = {}) {
     success: true,
     todo: { id: "id", description: "description", createdAt: "createdAt" },
   };
+
   const actionErrorResult = {
     success: false,
     errors: ["failed to create TODO"],
   };
+
   const actionResult = success ? actionSuccessResult : actionErrorResult;
 
   const actionNoDelay = vi.fn().mockResolvedValue(actionResult);
 
   const actionDelayed = vi.fn().mockImplementation(async () => {
     await new Promise((r) => setTimeout(r, delay));
+    console.log("CALL ACTIONDELAYED");
     return actionResult;
   });
 

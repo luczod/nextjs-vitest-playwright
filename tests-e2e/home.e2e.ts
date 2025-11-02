@@ -121,8 +121,8 @@ test.describe("<Home /> (E2E)", () => {
       const createdTodo = page
         .getByRole("listitem")
         .filter({ hasText: NEW_TODO_TEXT });
-      await expect(createdTodo).toBeVisible();
 
+      await expect(createdTodo).toBeVisible();
       await expect(btn).toBeVisible();
       await expect(btn).toBeEnabled();
     });
