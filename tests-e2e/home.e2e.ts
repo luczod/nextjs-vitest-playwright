@@ -1,5 +1,10 @@
-import { makeTestTodoRepository } from "@/core/__tests__/utils/make-test-todo-repository";
+import {
+  makeTestTodoRepository,
+  insertTestTodos,
+} from "@/core/__tests__/utils/make-test-todo-repository";
 import { test, expect, Page } from "@playwright/test";
+
+// npx playwright test home.e2e.ts -g "Exclusion" --project=chromium --headed --reporter null
 
 const HOME_URL = "/";
 const HEADING = "to-do list";
@@ -38,14 +43,14 @@ test.describe("<Home /> (E2E)", () => {
     test("It must have the correct HTML title.", async ({ page }) => {
       await expect(page).toHaveTitle("Tests with Vitest and Playwright");
     });
-  });
 
-  test("It must render the header, input, and button to create TODOs.", async ({
-    page,
-  }) => {
-    await expect(getHeading(page)).toBeVisible();
-    await expect(getInput(page)).toBeVisible();
-    await expect(getBtn(page)).toBeVisible();
+    test("It must render the header, input, and button to create TODOs.", async ({
+      page,
+    }) => {
+      await expect(getHeading(page)).toBeVisible();
+      await expect(getInput(page)).toBeVisible();
+      await expect(getBtn(page)).toBeVisible();
+    });
   });
 
   // Creation
@@ -139,10 +144,88 @@ test.describe("<Home /> (E2E)", () => {
 
       await expect(input).toBeEnabled();
     });
+
+    test("should clear the input after creating a whole.", async ({ page }) => {
+      const { btn, input } = getAll(page);
+      await input.fill(NEW_TODO_TEXT);
+      await btn.click();
+
+      await expect(input).toHaveValue("");
+    });
   });
 
   // Exclusion
-  test.describe("Exclusion", () => {});
+  test.describe("Exclusion", () => {
+    test("It should allow you to delete everything.", async ({ page }) => {
+      const todos = await insertTestTodos();
+      await page.reload(); // make next.js revalidate cache
+
+      const itemToDelete = page
+        .getByRole("listitem")
+        .filter({ hasText: todos[1].description });
+
+      await expect(itemToDelete).toBeVisible();
+
+      const deleteBtn = itemToDelete.getByRole("button");
+      await deleteBtn.click();
+
+      await itemToDelete.waitFor({ state: "detached" });
+      await expect(itemToDelete).not.toBeVisible();
+    });
+
+    test("It should allow deleting all TODOs.", async ({ page }) => {
+      await insertTestTodos();
+      await page.reload(); // make next.js revalidate cache
+
+      while (true) {
+        const item = page.getByRole("listitem").first();
+        const isVisible = await item.isVisible().catch(() => false);
+        if (!isVisible) break;
+
+        const text = await item.textContent();
+
+        if (!text) {
+          throw Error("Item text not found");
+        }
+
+        const deleteBtn = item.getByRole("button");
+        await deleteBtn.click();
+
+        const renewedItem = page
+          .getByRole("listitem")
+          .filter({ hasText: text });
+
+        await renewedItem.waitFor({ state: "detached" });
+        await expect(renewedItem).not.toBeVisible();
+      }
+    });
+
+    test("Should disable the list items when you send the action.", async ({
+      page,
+    }) => {
+      //
+    });
+  });
+
+  test.describe("Erros", () => {
+    test("It should show an error if the description has 3 or fewer characters.", async ({
+      page,
+    }) => {
+      //
+    });
+
+    test("It should show an error if a TODO already exists with the same description.", async ({
+      page,
+    }) => {
+      //
+    });
+
+    test("The error message should be removed from the screen once the user corrects it.", async ({
+      page,
+    }) => {
+      //
+    });
+  });
   // Errors
   test.describe("Errors", () => {});
 });
