@@ -227,6 +227,7 @@ test.describe("<Home /> (E2E)", () => {
       const deleteItemNotVisible = page
         .getByRole("listitem")
         .filter({ hasText: itemToBeDeletedText });
+
       await deleteItemNotVisible.waitFor({ state: "detached" });
       await expect(deleteItemNotVisible).not.toBeVisible();
 
@@ -245,19 +246,54 @@ test.describe("<Home /> (E2E)", () => {
     test("It should show an error if the description has 3 or fewer characters.", async ({
       page,
     }) => {
-      //
+      const { input, btn } = getAll(page);
+      await input.fill("abc");
+      await btn.click();
+
+      const errorText = "Description must have more than 3 characters";
+      const error = page.getByText(errorText);
+
+      await error.waitFor({ state: "attached" });
+      await expect(error).toBeVisible();
     });
 
     test("It should show an error if a TODO already exists with the same description.", async ({
       page,
     }) => {
-      //
+      const { input, btn } = getAll(page);
+
+      await input.fill("description already exists");
+      await btn.click();
+      await input.fill("description already exists");
+      await btn.click();
+
+      const errorText =
+        "A todo with the submitted ID or description already exists";
+      const error = page.getByText(errorText);
+
+      await error.waitFor({ state: "attached", timeout: 5000 });
+      await expect(error).toBeVisible();
     });
 
     test("The error message should be removed from the screen once the user corrects it.", async ({
       page,
     }) => {
-      //
+      const { input, btn } = getAll(page);
+
+      await input.fill("abc");
+      await btn.click();
+
+      const errorText = "Description must have more than 3 characters";
+      const error = page.getByText(errorText);
+
+      await error.waitFor({ state: "attached", timeout: 5000 });
+      await expect(error).toBeVisible();
+
+      await input.fill("This Description is valid");
+      await btn.click();
+
+      await error.waitFor({ state: "detached", timeout: 5000 });
+      await expect(error).not.toBeVisible();
     });
   });
 });
